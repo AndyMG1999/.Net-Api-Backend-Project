@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -28,7 +29,7 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
     db.Stocks.Add(new Stock { Symbol = "TE1", CompanyName = "Test 1"});
-    db.Stocks.Add(new Stock { Symbol = "TE2", CompanyName = "Test "});
+    db.Stocks.Add(new Stock { Symbol = "TE2", CompanyName = "Test 2"});
     db.SaveChanges();
 }
 
@@ -65,6 +66,8 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+app.MapControllers();
 
 app.Run();
 
