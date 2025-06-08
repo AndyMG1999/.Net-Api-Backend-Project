@@ -1,3 +1,7 @@
+using api.Data;
+using api.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +15,22 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
 });
 
+// filepath: /Applications/Git Repos/NETApiExampleProject/api/Program.cs
+builder.Services.AddDbContext<ApplicationDBContext>(options =>
+{
+    options.UseInMemoryDatabase("DummyDb");
+});
+
 var app = builder.Build();
+
+// After app is built, before app.Run()
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+    db.Stocks.Add(new Stock { Symbol = "TE1", CompanyName = "Test 1"});
+    db.Stocks.Add(new Stock { Symbol = "TE2", CompanyName = "Test "});
+    db.SaveChanges();
+}
 
 if (app.Environment.IsDevelopment())
 {
