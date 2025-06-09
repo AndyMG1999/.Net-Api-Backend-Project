@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +38,14 @@ namespace api.Controllers
             }
 
             return Ok(stock);
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] Stock stock)
+        {
+            _context.Add(stock);
+            _context.SaveChanges();
+            return Ok();
         }
     }
 }
