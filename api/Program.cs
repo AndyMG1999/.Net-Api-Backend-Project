@@ -1,5 +1,7 @@
 using api.Data;
+using api.Interfaces;
 using api.Models;
+using api.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -21,6 +23,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseInMemoryDatabase("DummyDb");
 });
+
+builder.Services.AddScoped<IStockRepository, StockRepository>();
 
 var app = builder.Build();
 
