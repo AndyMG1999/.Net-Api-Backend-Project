@@ -32,8 +32,10 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
-    db.Stocks.Add(new Stock { Symbol = "TE1", CompanyName = "Test 1"});
-    db.Stocks.Add(new Stock { Symbol = "TE2", CompanyName = "Test 2"});
+    db.Stocks.Add(new Stock { Symbol = "GOO", CompanyName = "Google", Purchase = 120.13m, Industry = "Technology", MarketCap = ((long)Random.Shared.Next(0, int.MaxValue) << 32) | (uint)Random.Shared.Next(0, int.MaxValue)});
+    db.Stocks.Add(new Stock { Symbol = "VAL", CompanyName = "Valve", Purchase = 92.47m, Industry = "Technology", MarketCap = ((long)Random.Shared.Next(0, int.MaxValue) << 32) | (uint)Random.Shared.Next(0, int.MaxValue)});
+    db.Stocks.Add(new Stock { Symbol = "WNB", CompanyName = "Warner Bros.", Purchase = 345.99m, Industry = "Entertainment", MarketCap = ((long)Random.Shared.Next(0, int.MaxValue) << 32) | (uint)Random.Shared.Next(0, int.MaxValue)});
+    db.Stocks.Add(new Stock { Symbol = "TDJ", CompanyName = "Trader Joe's", Purchase = 75.00m, Industry = "Produce", MarketCap = ((long)Random.Shared.Next(0, int.MaxValue) << 32) | (uint)Random.Shared.Next(0, int.MaxValue)});
     db.SaveChanges();
 }
 

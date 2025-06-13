@@ -37,12 +37,7 @@ namespace api.Controllers
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var stock = await _context.Stocks.FindAsync(id);
-
-            if (stock == null)
-            {
-                return NotFound();
-            }
+            Stock stock = await _repository.GetStock(id);
 
             return Ok(stock.ToStockDto());
         }
@@ -50,31 +45,15 @@ namespace api.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stock)
         {
-            Stock stockFromDto = stock.CreateFromDTO();
+            await _repository.CreateStock(stock);
 
-            await _context.Stocks.AddAsync(stockFromDto);
-            await _context.SaveChangesAsync();
             return Ok();
         }
 
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateStockDto)
         {
-            var stock = await _context.Stocks.FirstOrDefaultAsync(stock => stock.Id == id);
-
-            if (stock == null)
-            {
-                return NotFound();
-            }
-
-            stock.Symbol = updateStockDto.Symbol;
-            stock.CompanyName = updateStockDto.CompanyName;
-            stock.Purchase = updateStockDto.Purchase;
-            stock.LastDiv = updateStockDto.LastDiv;
-            stock.Industry = updateStockDto.Industry;
-            stock.MarketCap = updateStockDto.MarketCap;
-
-            await _context.SaveChangesAsync();
+            await _repository.UpdateStock(id, updateStockDto);
 
             return Ok();
         }
