@@ -25,6 +25,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 });
 
 builder.Services.AddScoped<IStockRepository, StockRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 var app = builder.Build();
 
@@ -32,10 +33,14 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+    // Adding Stocks
     db.Stocks.Add(new Stock { Symbol = "GOO", CompanyName = "Google", Purchase = 120.13m, Industry = "Technology", MarketCap = ((long)Random.Shared.Next(0, int.MaxValue) << 32) | (uint)Random.Shared.Next(0, int.MaxValue)});
     db.Stocks.Add(new Stock { Symbol = "VAL", CompanyName = "Valve", Purchase = 92.47m, Industry = "Technology", MarketCap = ((long)Random.Shared.Next(0, int.MaxValue) << 32) | (uint)Random.Shared.Next(0, int.MaxValue)});
     db.Stocks.Add(new Stock { Symbol = "WNB", CompanyName = "Warner Bros.", Purchase = 345.99m, Industry = "Entertainment", MarketCap = ((long)Random.Shared.Next(0, int.MaxValue) << 32) | (uint)Random.Shared.Next(0, int.MaxValue)});
     db.Stocks.Add(new Stock { Symbol = "TDJ", CompanyName = "Trader Joe's", Purchase = 75.00m, Industry = "Produce", MarketCap = ((long)Random.Shared.Next(0, int.MaxValue) << 32) | (uint)Random.Shared.Next(0, int.MaxValue)});
+
+    // Adding Comments
+    db.Comments.Add(new Comment { Title = "I love Google!", Content = "Google really is awesome, I love when they spy on me!", StockId = 1 });
     db.SaveChanges();
 }
 
