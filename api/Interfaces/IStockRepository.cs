@@ -11,6 +11,7 @@ namespace api.Interfaces
     {
         Task CreateStock(CreateStockRequestDto stock);
         Task<Stock> GetStock(int id);
+        Task<Stock> GetStockDetails(int id);
         Task<List<Stock>> GetAllAsync();
         Task UpdateStock(int id, UpdateStockRequestDto newInfo);
         Task DeleteStock(int id);

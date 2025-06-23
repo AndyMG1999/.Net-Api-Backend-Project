@@ -41,6 +41,7 @@ using (var scope = app.Services.CreateScope())
 
     // Adding Comments
     db.Comments.Add(new Comment { Title = "I love Google!", Content = "Google really is awesome, I love when they spy on me!", StockId = 1 });
+    db.Comments.Add(new Comment { Title = "I also love Google!", Content = "I also think Google really is awesome, I love when they spy on me as well!", StockId = 1 });
     db.SaveChanges();
 }
 

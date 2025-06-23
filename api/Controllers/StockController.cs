@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Dtos.Comment;
 using api.Dtos.Stock;
 using api.Interfaces;
 using api.Mappers;
@@ -40,6 +41,16 @@ namespace api.Controllers
             Stock stock = await _repository.GetStock(id);
 
             return Ok(stock.ToStockDto());
+        }
+
+        [HttpGet("GetDetails/{id}")]
+        public async Task<IActionResult> GetDetailsById([FromRoute] int id)
+        {
+            Stock stock = await _repository.GetStockDetails(id);
+            if (stock == null) return NotFound();
+
+            StockDetailsDto stockDto = stock.ToStockDetailsDto();
+            return Ok(stockDto);
         }
 
         [HttpPost("Create")]
