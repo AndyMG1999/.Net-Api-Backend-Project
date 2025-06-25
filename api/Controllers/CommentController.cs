@@ -21,6 +21,13 @@ namespace api.Controllers
             _commentRepo = commentRepo;
         }
 
+        [HttpPost("Create/{id}")]
+        public async Task<IActionResult> Create([FromRoute] int id, [FromBody] CreateCommentDto commentDto)
+        {
+            await _commentRepo.Create(id, commentDto);
+            return Ok();
+        }
+
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {

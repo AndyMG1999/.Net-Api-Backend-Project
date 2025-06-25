@@ -65,7 +65,7 @@ namespace api.Repositories
         public async Task<Stock> GetStockDetails(int id)
         {
             var stock = await _context.Stocks.Include(s => s.Comments).Where(s => s.Id == id).FirstOrDefaultAsync();
-            
+
             return stock ?? throw new Exception("Stock not found");
         }
     }
