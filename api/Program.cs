@@ -42,6 +42,14 @@ using (var scope = app.Services.CreateScope())
     // Adding Comments
     db.Comments.Add(new Comment { Title = "I love Google!", Content = "Google really is awesome, I love when they spy on me!", StockId = 1 });
     db.Comments.Add(new Comment { Title = "I also love Google!", Content = "I also think Google really is awesome, I love when they spy on me as well!", StockId = 1 });
+
+    db.Comments.Add(new Comment { Title = "Tesla is such a poopy company 🙁", Content = "I just feel like I need to get that out of my system tbh...", StockId = 2 });
+    db.Comments.Add(new Comment { Title = "Steam deck user here", Content = "Just wanted to say the steam deck is super cool and should definitely get one", StockId = 2 });
+    db.Comments.Add(new Comment { Title = "😩", Content = "Valve pls give me money", StockId = 2 });
+
+    db.Comments.Add(new Comment { Title = "TJ Flirtin!", Content = "why tj workers be flirtin all the dag time!", StockId = 4 });
+    db.Comments.Add(new Comment { Title = "Bring back Pumkin Sauce", Content = "Trader Joe's... I need it...", StockId = 4 });
+    db.Comments.Add(new Comment { Title = "i love flirting with curstomers", Content = "you guys aren't crazy, we do flirt with ya'll", StockId = 4 });
     db.SaveChanges();
 }
 
