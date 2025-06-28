@@ -68,5 +68,10 @@ namespace api.Repositories
 
             return stock ?? throw new Exception("Stock not found");
         }
+
+        public async Task<bool> CheckIfExists(int id)
+        {
+            return await _context.Stocks.AnyAsync(s => id == s.Id);
+        }
     }
 }

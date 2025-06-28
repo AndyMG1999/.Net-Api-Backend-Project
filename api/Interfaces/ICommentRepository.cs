@@ -14,5 +14,7 @@ namespace api.Interfaces
         Task<List<Comment>> GetAllAsync();
         Task<Comment?> GetByIdAsync(int id);
         Task Update(int commentId, UpdateCommentDto commentDto);
+        Task Delete(int commentId);
+        Task<bool> CheckExists(int commentId);
     }
 }

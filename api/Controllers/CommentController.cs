@@ -54,5 +54,12 @@ namespace api.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteComment([FromRoute] int id)
+        {
+            await _commentRepo.Delete(id);
+            return Ok();
+        }
     }
 }

@@ -27,14 +27,17 @@ namespace api.Repositories
 
         public async Task Create(int stockId, CreateCommentDto commentDto)
         {
-            // Checks if stock exists
-            Stock stock = await _stockRepo.GetStock(stockId) ?? throw new Exception("Stock does not exist");
+            bool stockExists = await _stockRepo.CheckIfExists(stockId);
+            if (!stockExists) throw new Exception("Stock Does NOT Exist");
+
             Comment comment = commentDto.ToComment();
             comment.StockId = stockId;
 
             await _applicationDBContext.AddAsync(comment);
             await _applicationDBContext.SaveChangesAsync();
         }
+
+
         public async Task<List<Comment>> GetAllAsync()
         {
             return await _applicationDBContext.Comments.ToListAsync();
@@ -53,6 +56,19 @@ namespace api.Repositories
             comment.Content = commentDto.Content;
 
             await _applicationDBContext.SaveChangesAsync();
+        }
+
+        public async Task Delete(int commentId)
+        {
+            Comment comment = await this.GetByIdAsync(commentId) ?? throw new Exception("Comment Does NOT Exist");
+
+            _applicationDBContext.Remove(comment);
+            await _applicationDBContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> CheckExists(int commentId)
+        {
+            return await _applicationDBContext.Comments.AnyAsync(c => c.Id == commentId);
         }
     }
 }
