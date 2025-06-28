@@ -44,5 +44,15 @@ namespace api.Repositories
         {
             return await _applicationDBContext.Comments.FindAsync(id);
         }
+
+        public async Task Update(int commentId, UpdateCommentDto commentDto)
+        {
+            Comment comment = await _applicationDBContext.Comments.FindAsync(commentId) ?? throw new Exception("Comment Not Found");
+
+            comment.Title = commentDto.Title;
+            comment.Content = commentDto.Content;
+
+            await _applicationDBContext.SaveChangesAsync();
+        }
     }
 }

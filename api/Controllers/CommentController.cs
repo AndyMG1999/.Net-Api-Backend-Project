@@ -46,5 +46,13 @@ namespace api.Controllers
 
             return Ok(comment.ToCommentDto());
         }
+
+        [HttpPut("Update/{id}")]
+        public async Task<IActionResult> UpdateComment([FromRoute] int id, [FromBody] UpdateCommentDto commentDto)
+        {
+            await _commentRepo.Update(id, commentDto);
+
+            return Ok();
+        }
     }
 }
